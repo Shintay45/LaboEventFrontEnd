@@ -15,7 +15,7 @@ namespace LaboEventFrontEnd.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Le champ 'Mot de passe' est obligatoire.")]
-        [RegularExpression("^(?=.\\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$",
+        [RegularExpression("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
             ErrorMessage = "Doit contenir une majuscule et 8 characteres ")]
         public string Password { get; set; }
 
