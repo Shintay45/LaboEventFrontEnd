@@ -1,4 +1,5 @@
-﻿using LaboEventFrontEnd.Models;
+﻿using Blazored.Toast.Services;
+using LaboEventFrontEnd.Models;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Json;
@@ -12,6 +13,8 @@ namespace LaboEventFrontEnd.Pages
         public HttpClient Client { get; set; }
         [Inject]
         public NavigationManager Nav { get; set; }
+        [Inject]
+        public IToastService ToastService { get; set; }
 
         public RegisterUserForm MyForm { get; set; }
         
@@ -24,22 +27,21 @@ namespace LaboEventFrontEnd.Pages
         {
             try
             {
-                var response = await Client.PostAsJsonAsync("Auth/register", MyForm);
+                HttpResponseMessage response = await Client.PostAsJsonAsync("Auth/register", MyForm);
                 if (response.IsSuccessStatusCode)
                 {
+                    ToastService.ShowSuccess("Compte créé avec succès.");
                     Nav.NavigateTo("/");
                 }
                 else
                 {
-                    await Console.Out.WriteLineAsync(response.Content.ToString());
-                    await Console.Out.WriteLineAsync(response.StatusCode.ToString());
+                    ToastService.ShowError("Une erreur est survenue.");
                 }
             }
             catch (HttpRequestException ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
+                ToastService.ShowError(ex.Message);
             }
         }
-
     }
 }
