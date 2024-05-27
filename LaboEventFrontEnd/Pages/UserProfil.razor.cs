@@ -51,5 +51,9 @@ namespace LaboEventFrontEnd.Pages
             var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "personId" || c.Type == "sub");
             return userIdClaim?.Value;
         }
+        private void ModifierProfil()
+        {
+
+        }
     }
 }
