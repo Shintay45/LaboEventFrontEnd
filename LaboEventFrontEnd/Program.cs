@@ -1,3 +1,5 @@
+using LaboEventFrontEnd.Security;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -12,6 +14,8 @@ namespace LaboEventFrontEnd
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7080/Api/") });
+
+            
 
             await builder.Build().RunAsync();
         }
