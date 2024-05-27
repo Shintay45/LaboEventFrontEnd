@@ -1,7 +1,12 @@
 ﻿using LaboEventFrontEnd.Models;
+using LaboEventFrontEnd.Security;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 
 namespace LaboEventFrontEnd.Pages
@@ -23,15 +28,28 @@ namespace LaboEventFrontEnd.Pages
 
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            using (HttpResponseMessage message = await Client.GetAsync("/persons"))
+            string userId = GetUserIFromJwtToken(token);
+            Console.Out.WriteLine(userId);
+            using (HttpResponseMessage message = await Client.GetAsync("persons/"+userId))
             {
                 if (message.IsSuccessStatusCode)
                 {
+                    Console.Out.WriteLine(message.Content);
                     string json = await message.Content.ReadAsStringAsync();
                     CurrentUser = JsonConvert.DeserializeObject<User>(json);
                     StateHasChanged();
                 }
             }
+        }
+
+        private string GetUserIFromJwtToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            // Remplacez "user_id" par le nom correct du claim dans votre token
+            var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "personId" || c.Type == "sub");
+            return userIdClaim?.Value;
         }
     }
 }
