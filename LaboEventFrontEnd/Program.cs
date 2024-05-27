@@ -1,4 +1,6 @@
 using Blazored.Toast;
+using LaboEventFrontEnd;
+using LaboEventFrontEnd.Infrastructure;
 using LaboEventFrontEnd.Security;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,8 +19,16 @@ namespace LaboEventFrontEnd
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7080/Api/") });
             builder.Services.AddBlazoredToast();
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddTransient<TokenInterceptor>();
+            builder.Services.AddHttpClient("WithToken", sp =>
+            {
+                new HttpClient();
+                sp.BaseAddress = new Uri("https://localhost:7080/api/");
+            }).AddHttpMessageHandler<TokenInterceptor>();
             builder.Services.AddSingleton<AuthenticationStateProvider, MyStateProvider>();
+            
 
+            
 
 
             await builder.Build().RunAsync();
