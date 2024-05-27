@@ -5,11 +5,14 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Text;
 using Newtonsoft.Json;
+using Blazored.Toast.Services;
 
 namespace LaboEventFrontEnd.Pages
 {
     public partial class Login
     {
+        [Inject]
+        public IToastService ToastService { get; set; }
         [Inject]
         public IJSRuntime jsRuntime { get; set; }
         [Inject]
@@ -18,7 +21,7 @@ namespace LaboEventFrontEnd.Pages
         public NavigationManager nav { get; set; }
         public LoginForm MyForm { get; set; }
         public HttpClient client { get; set; }
-        private string ApiUrl = "https://localhost:7158/api/";
+        private string ApiUrl = "https://localhost:7080/api/";
         protected override void OnInitialized()
         {
             MyForm = new LoginForm();
@@ -38,6 +41,7 @@ namespace LaboEventFrontEnd.Pages
                     Console.WriteLine(token);
                     await jsRuntime.InvokeVoidAsync("localStorage.setItem", "token", token);
                     ((MyStateProvider)providerService).NotifyUserChanged();
+                    ToastService.ShowSuccess("Vous êtes connecté.");
                     nav.NavigateTo("/");
                 }
                 else
