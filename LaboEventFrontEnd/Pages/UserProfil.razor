@@ -1,0 +1,13 @@
+﻿@page "/profil"
+@if (CurrentUser != null)
+{
+    <h3>UserProfil</h3>
+    <p>Email : @CurrentUser.Email</p>
+    <p>Nom : @CurrentUser.FirstName</p>
+    <p>Prenom : @CurrentUser.LastName</p>
+    
+}
+
+@code {
+
+}
