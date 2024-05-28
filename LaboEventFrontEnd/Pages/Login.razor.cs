@@ -6,6 +6,8 @@ using Microsoft.JSInterop;
 using System.Text;
 using Newtonsoft.Json;
 using Blazored.Toast.Services;
+using Newtonsoft.Json.Linq;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LaboEventFrontEnd.Pages
 {
@@ -18,12 +20,13 @@ namespace LaboEventFrontEnd.Pages
         [Inject]
         public AuthenticationStateProvider providerService { get; set; }
         [Inject]
-        public NavigationManager nav { get; set; }
+        public NavigationManager Nav { get; set; }
         public LoginForm MyForm { get; set; }
         public HttpClient client { get; set; }
         private string ApiUrl = "https://localhost:7080/api/";
+        private string Token { get; set; }
         protected override void OnInitialized()
-        {
+        {            
             MyForm = new LoginForm();
             client = new HttpClient();
             client.BaseAddress = new Uri(ApiUrl);
@@ -43,7 +46,7 @@ namespace LaboEventFrontEnd.Pages
                         await jsRuntime.InvokeVoidAsync("localStorage.setItem", "token", token);
                         ((MyStateProvider)providerService).NotifyUserChanged();
                         ToastService.ShowSuccess("Vous êtes connecté.");
-                        nav.NavigateTo("/");
+                        Nav.NavigateTo("/");
                     }
                     else
                     {

@@ -1,17 +1,24 @@
 ﻿@page "/login"
-<h3>Login</h3>
-<EditForm Model="MyForm" OnValidSubmit="SubmitLogin">
-    <DataAnnotationsValidator />
-    <p>
-        Email : <InputText @bind-Value="MyForm.Email" class="form-control col-6" />
-        <ValidationMessage For="() => MyForm.Email" />
-    </p>
-    <p>
-        Password : <InputText type="password" @bind-Value="MyForm.Password" class="form-control col-6" />
-        <ValidationMessage For="() => MyForm.Password" />
-    </p>
-    <button class="btn btn-outline-success">Valider</button>
-</EditForm>
-@code {
 
-}
+<AuthorizeView>
+    <NotAuthorized>
+        <h3>Login</h3>
+
+        <EditForm Model="MyForm" OnValidSubmit="SubmitLogin" Context="formContext">
+            <DataAnnotationsValidator />
+            <p>
+                Email : <InputText @bind-Value="MyForm.Email" class="form-control col-6" />
+                <ValidationMessage For="() => MyForm.Email" />
+            </p>
+            <p>
+                Password : <InputText type="password" @bind-Value="MyForm.Password" class="form-control col-6" />
+                <ValidationMessage For="() => MyForm.Password" />
+            </p>
+            <button class="btn btn-outline-success">Valider</button>
+        </EditForm>
+    </NotAuthorized>    
+   
+</AuthorizeView>
+
+
+
