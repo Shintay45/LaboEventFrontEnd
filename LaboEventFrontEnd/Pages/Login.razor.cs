@@ -31,26 +31,32 @@ namespace LaboEventFrontEnd.Pages
 
         public async void SubmitLogin()
         {
-            string json = JsonConvert.SerializeObject(MyForm);
-            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            using (HttpResponseMessage message = await client.PostAsync("Auth/login", content))
+            try
             {
-                if (message.IsSuccessStatusCode)
+                string json = JsonConvert.SerializeObject(MyForm);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                using (HttpResponseMessage message = await client.PostAsync("Auth/login", content))
                 {
-                    string token = message.Content.ReadAsStringAsync().Result;
-                    Console.WriteLine(token);
-                    await jsRuntime.InvokeVoidAsync("localStorage.setItem", "token", token);
-                    ((MyStateProvider)providerService).NotifyUserChanged();
-                    ToastService.ShowSuccess("Vous êtes connecté.");
-                    nav.NavigateTo("/");
+                    if (message.IsSuccessStatusCode)
+                    {
+                        string token = message.Content.ReadAsStringAsync().Result;
+                        Console.WriteLine(token);
+                        await jsRuntime.InvokeVoidAsync("localStorage.setItem", "token", token);
+                        ((MyStateProvider)providerService).NotifyUserChanged();
+                        ToastService.ShowSuccess("Vous êtes connecté.");
+                        nav.NavigateTo("/");
+                    }
+                    else
+                    {
+                        ToastService.ShowError("Une erreur est survenue, veuillez réessayer.");
+                    }
+                    //if(message.StatusCode == System.Net.HttpStatusCode.OK) { }
                 }
-                else
-                {
-                    Console.WriteLine(message);
-                }
-                //if(message.StatusCode == System.Net.HttpStatusCode.OK) { }
             }
-
+            catch (Exception ex)
+            {
+                ToastService.ShowError(ex.Message);
+            }
         }
     }
 }

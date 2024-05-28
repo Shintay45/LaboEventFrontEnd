@@ -1,4 +1,5 @@
-﻿using LaboEventFrontEnd.Models;
+﻿using Blazored.Toast.Services;
+using LaboEventFrontEnd.Models;
 using LaboEventFrontEnd.Security;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -17,28 +18,39 @@ namespace LaboEventFrontEnd.Pages
         public HttpClient Client { get; set; }
         [Inject]
         public IJSRuntime js { get; set; }
-
+        [Inject]
+        public NavigationManager Nav { get; set; }
+        [Inject]
+        public IToastService ToastService { get; set; }
         public User CurrentUser { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            
 
-            string token = await js.InvokeAsync<string>("localStorage.getItem", "token");
 
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            string userId = GetUserIFromJwtToken(token);
-            Console.Out.WriteLine(userId);
-            using (HttpResponseMessage message = await Client.GetAsync("persons/"+userId))
+            try
             {
-                if (message.IsSuccessStatusCode)
+                string token = await js.InvokeAsync<string>("localStorage.getItem", "token");
+
+                Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                string userId = GetUserIFromJwtToken(token);
+                Console.Out.WriteLine(userId);
+                using (HttpResponseMessage message = await Client.GetAsync("persons/" + userId))
                 {
-                    Console.Out.WriteLine(message.Content);
-                    string json = await message.Content.ReadAsStringAsync();
-                    CurrentUser = JsonConvert.DeserializeObject<User>(json);
-                    StateHasChanged();
+                    if (message.IsSuccessStatusCode)
+                    {
+                        Console.Out.WriteLine(message.Content);
+                        string json = await message.Content.ReadAsStringAsync();
+                        CurrentUser = JsonConvert.DeserializeObject<User>(json);
+                        StateHasChanged();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
+                ToastService.ShowError(ex.Message);
             }
         }
 

@@ -8,8 +8,7 @@
     <button @onclick=ModifierProfil>
         Modifier le profil
     </button>
-}
-
-@code {
-
+}else{
+    Nav.NavigateTo("/login");
+    ToastService.ShowInfo("Vous devez être connecté pour accéder à cet url.");
 }
