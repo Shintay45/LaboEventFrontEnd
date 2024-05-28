@@ -1,37 +1,39 @@
 ﻿@page "/Register"
 <AuthorizeView>
     <NotAuthorized>
-        <h3>RegisterForm</h3>
-        <EditForm class="row g-3 align-items-center w-75"
+        <h3>Formulaire d'inscription</h3>
+
+
+        <EditForm 
                   Model="MyForm"
                   OnValidSubmit="OnSubmitForm"
                   Context="formContext">
             <DataAnnotationsValidator />
-            <div class="list-item">
+            <p class="list-item">
                 <label class="col-form-label">Email</label>
-                <InputText type="email" @bind-Value="MyForm.Email" class="form-control form-control-sm" />
+                <InputText type="email" @bind-Value="MyForm.Email" class="form-control form-control col-6" />
                 <ValidationMessage For="@(() => MyForm.Email)" />
-            </div>
-            <div class="list-item">
+            </p>
+            <p class="list-item">
                 <label class="col-form-label">LastName</label>
-                <InputText @bind-Value="MyForm.LastName" class="form-control form-control-sm" />
+                <InputText @bind-Value="MyForm.LastName" class="form-control form-control col-6" />
                 <ValidationMessage For="@(() => MyForm.LastName)" />
-            </div>
-            <div class="list-item">
+            </p>
+            <p class="list-item">
                 <label class="col-form-label">FirstName</label>
-                <InputText @bind-Value="MyForm.FirstName" class="form-control form-control-sm" />
+                <InputText @bind-Value="MyForm.FirstName" class="form-control form-control col-6" />
                 <ValidationMessage For="@(() => MyForm.FirstName)" />
-            </div>
-            <div class="list-item">
+            </p>
+            <p class="list-item">
                 <label class="col-form-label">Mot de passe</label>
-                <InputText type="password" @bind-Value="MyForm.Password" class="form-control form-control-sm" />
+                <InputText type="password" @bind-Value="MyForm.Password" class="form-control form-control col-6" />
                 <ValidationMessage For="@(() => MyForm.Password)" />
-            </div>
-            <div class="list-item">
+            </p>
+            <p class="list-item">
                 <label class="col-form-label">Confirmer mot de passe </label>
-                <InputText type="password" @bind-Value="MyForm.PasswordConfirm" class="form-control form-control-sm" />
+                <InputText type="password" @bind-Value="MyForm.PasswordConfirm" class="form-control form-control col-6" />
                 <ValidationMessage For="@(() => MyForm.PasswordConfirm)" />
-            </div>
+            </p>
             <button class="btn btn-outline-success" type="submit">Valider</button>
         </EditForm>
     </NotAuthorized>

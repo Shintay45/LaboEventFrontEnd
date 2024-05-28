@@ -46,7 +46,7 @@ h4,
 h5,
 h6 {
 	margin: 0;
-	color: #111111;
+	color: #bebaba;
 	font-weight: 400;
 	font-family: "Mulish", sans-serif;
 }
@@ -2379,4 +2379,7 @@ ol {
 
 .header__right {
 	justify-content: flex-end; /* Aligner les éléments à droite */
+}
+label{
+	color : #bebaba;
 }
