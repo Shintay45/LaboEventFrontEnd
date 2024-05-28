@@ -1,14 +1,38 @@
 ﻿@page "/profil"
+
 @if (CurrentUser != null)
 {
     <h3>UserProfil</h3>
+    <br />
+
+    
+        <EditForm class="row g-3 align-items-center w-75"
+                  Model="MyForm"
+                  OnValidSubmit="OnSubmitForm">
+            <DataAnnotationsValidator />
+            <div class="list-item">
+                <label class="col-form-label">Email</label>
+                <InputText type="email" @bind-Value="MyForm.Email" class="form-control form-control-sm" />
+                <ValidationMessage For="@(() => MyForm.Email)" />
+            </div>
+            <div class="list-item">
+                <label class="col-form-label">LastName</label>
+                <InputText @bind-Value="MyForm.LastName" class="form-control form-control-sm" />
+                <ValidationMessage For="@(() => MyForm.LastName)" />
+            </div>
+            <div class="list-item">
+                <label class="col-form-label">FirstName</label>
+                <InputText @bind-Value="MyForm.FirstName" class="form-control form-control-sm" />
+                <ValidationMessage For="@(() => MyForm.FirstName)" />
+            </div>            
+            <button class="btn btn-outline-success" type="submit">Valider</button>
+        </EditForm>
+    
     <p>Email : @CurrentUser.Email</p>
     <p>Nom : @CurrentUser.FirstName</p>
     <p>Prenom : @CurrentUser.LastName</p>
-    <button @onclick=ModifierProfil>
-        Modifier le profil
-    </button>
+    
 }else{
-    Nav.NavigateTo("/login");
-    ToastService.ShowInfo("Vous devez être connecté pour accéder à cet url.");
+    @* Nav.NavigateTo("/login");
+    ToastService.ShowInfo("Vous devez être connecté pour accéder à cet url."); *@
 }

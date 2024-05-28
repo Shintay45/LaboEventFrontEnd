@@ -39,8 +39,7 @@ namespace LaboEventFrontEnd.Pages
                 {
                     if (message.IsSuccessStatusCode)
                     {
-                        string token = message.Content.ReadAsStringAsync().Result;
-                        Console.WriteLine(token);
+                        string token = message.Content.ReadAsStringAsync().Result;                        
                         await jsRuntime.InvokeVoidAsync("localStorage.setItem", "token", token);
                         ((MyStateProvider)providerService).NotifyUserChanged();
                         ToastService.ShowSuccess("Vous êtes connecté.");
