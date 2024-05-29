@@ -6,6 +6,7 @@ using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 
 namespace LaboEventFrontEnd.Pages
@@ -60,7 +61,7 @@ namespace LaboEventFrontEnd.Pages
             JwtSecurityToken jwtToken = handler.ReadJwtToken(token);
 
             // Remplacez "user_id" par le nom correct du claim dans votre token
-            var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "personId" || c.Type == "sub");
+            Claim userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "personId" || c.Type == "sub");
             return userIdClaim?.Value;
         }
         private async Task OnSubmitForm()
