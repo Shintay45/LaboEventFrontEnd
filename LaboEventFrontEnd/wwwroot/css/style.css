@@ -2383,3 +2383,84 @@ ol {
 label{
 	color : #bebaba;
 }
+/* Style général des toasts */
+.blazored-toast {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+	min-width: 250px;
+	max-width: 350px;
+	padding: 15px;
+	margin-bottom: 10px;
+	color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+}
+
+	/* Style des messages de succès */
+	.blazored-toast.success {
+		background-color: #4caf50; /* Vert pour le succès */
+		border-left: 5px solid #388e3c; /* Bordure gauche plus foncée */
+	}
+
+	/* Style des messages d'erreur */
+	.blazored-toast.error {
+		background-color: #f44336; /* Rouge pour l'erreur */
+		border-left: 5px solid #d32f2f; /* Bordure gauche plus foncée */
+	}
+
+	/* Style des messages d'avertissement */
+	.blazored-toast.warning {
+		background-color: #ff9800; /* Orange pour l'avertissement */
+		border-left: 5px solid #f57c00; /* Bordure gauche plus foncée */
+	}
+
+	/* Style des messages d'information */
+	.blazored-toast.info {
+		background-color: #2196f3; /* Bleu pour l'information */
+		border-left: 5px solid #1976d2; /* Bordure gauche plus foncée */
+	}
+/* Style général des toasts */
+.blazored-toast {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+	min-width: 250px;
+	max-width: 350px;
+	padding: 15px;
+	margin-bottom: 10px;
+	color: #000; /* Texte noir pour une meilleure lisibilité sur fond clair */
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre plus prononcée */
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	background-color: #fff; /* Fond blanc pour contraste sur fond sombre */
+}
+
+	/* Style des messages de succès */
+	.blazored-toast.success {
+		border-left: 5px solid #388e3c; /* Bordure gauche plus foncée */
+	}
+
+	/* Style des messages d'erreur */
+	.blazored-toast.error {
+		border-left: 5px solid #d32f2f; /* Bordure gauche plus foncée */
+	}
+
+	/* Style des messages d'avertissement */
+	.blazored-toast.warning {
+		border-left: 5px solid #f57c00; /* Bordure gauche plus foncée */
+	}
+
+	/* Style des messages d'information */
+	.blazored-toast.info {
+		border-left: 5px solid #1976d2; /* Bordure gauche plus foncée */
+	}

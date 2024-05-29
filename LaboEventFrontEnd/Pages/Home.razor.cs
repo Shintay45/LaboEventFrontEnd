@@ -16,5 +16,6 @@ namespace LaboEventFrontEnd.Pages
                 await Js.InvokeVoidAsync("initializeMainJs");
             }
         }
+
     }
 }
