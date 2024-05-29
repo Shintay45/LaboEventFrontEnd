@@ -1,0 +1,43 @@
+﻿
+<header class="header">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-8">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        
+                        <li><a href="#">Evénements</a></li>
+                        <li><a href="#">Exposants</a></li>
+                        <li><a href="#">Thèmes</a></li>
+                        <li><a href="#">Roles</a></li>
+                        <li><a href="#">Personnes</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-2">
+                <div class="header__right">
+                    <a href="./login.html"><span class="icon_profile"></span></a>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+</header>
+
+
+
+
+
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
