@@ -1,10 +1,12 @@
 ﻿using Blazored.Toast.Services;
 using LaboEventFrontEnd.Models;
+using LaboEventFrontEnd.Security;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace LaboEventFrontEnd.Pages
 {
@@ -61,9 +63,34 @@ namespace LaboEventFrontEnd.Pages
             var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "personId" || c.Type == "sub");
             return userIdClaim?.Value;
         }
-        private void OnSubmitForm()
+        private async Task OnSubmitForm()
         {
-
+            try
+            {
+                string token = await js.InvokeAsync<string>("localStorage.getItem", "token");
+                string json = JsonConvert.SerializeObject(MyForm);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                string userId = GetUserIFromJwtToken(token);
+                using (HttpResponseMessage message = await Client.PutAsync("Persons/" + userId, content))
+                {
+                    if (message.IsSuccessStatusCode)
+                    {
+                       
+                        ToastService.ShowSuccess("Vous avez modifié votre profil.");
+                        Nav.NavigateTo("/");
+                    }
+                    else
+                    {
+                        ToastService.ShowError("Une erreur est survenue, veuillez réessayer.");
+                    }
+                    //if(message.StatusCode == System.Net.HttpStatusCode.OK) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                ToastService.ShowError(ex.Message);
+            }
         }
     }
 }

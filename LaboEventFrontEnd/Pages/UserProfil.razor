@@ -6,26 +6,26 @@
     <br />
 
         
-        <EditForm class="row g-3 align-items-center w-75"
+        <EditForm 
                   Model="MyForm"
                   OnValidSubmit="OnSubmitForm">
             <DataAnnotationsValidator />
-            <div class="list-item">
+            <p>
                 <label class="col-form-label">Email</label>
                 <InputText type="email" @bind-Value="MyForm.Email" class="form-control form-control-sm" />
                 <ValidationMessage For="@(() => MyForm.Email)" />
-            </div>
-            <div class="list-item">
+            </p>
+            <p>
                 <label class="col-form-label">LastName</label>
                 <InputText @bind-Value="MyForm.LastName" class="form-control form-control-sm" />
                 <ValidationMessage For="@(() => MyForm.LastName)" />
-            </div>
-            <div class="list-item">
+            </p>
+            <p>
                 <label class="col-form-label">FirstName</label>
                 <InputText @bind-Value="MyForm.FirstName" class="form-control form-control-sm" />
                 <ValidationMessage For="@(() => MyForm.FirstName)" />
-            </div>            
-            <button class="btn btn-outline-success" type="submit">Valider</button>
+            </p>            
+            <button class="btn btn-outline-success" type="submit">Modifier Profil</button>
         </EditForm>
 
     
